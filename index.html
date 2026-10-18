@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Zoro Trader — Trading Community on Telegram</title>
 <meta name="description" content="Explore trading-related insights, market discussions, and community updates from Zoro Trader on Telegram.">
-<meta name="theme-color" content="#F3EFE7">
+<meta name="theme-color" content="#050816">
 
 <!-- Meta Pixel Code -->
 <script>
@@ -17,302 +17,346 @@
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('consent', 'revoke'); /* no optional tracking before consent */
   fbq('init', '1660432378934205');
 </script>
 <!-- End Meta Pixel Code -->
 
 <style>
-/* ============================================================
-   ZORO TRADER — "INK & SIGNAL" EDITION
-   Editorial print style. Cream paper, black ink, one signal
-   accent. A complete departure from the previous neon style.
-   ============================================================ */
 :root{
-  --paper:#F3EFE7;
-  --paper-2:#EAE4D4;
-  --paper-3:#E1DAC6;
-  --ink:#141410;
-  --ink-soft:#4A4A40;
-  --accent:#E03E1A;
-  --accent-ink:#FFF6EE;
-  --line:rgba(20,20,16,.9);
-  --line-soft:rgba(20,20,16,.16);
-  --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,'Times New Roman',serif;
-  --sans:'Segoe UI',system-ui,-apple-system,Roboto,'Helvetica Neue',Arial,sans-serif;
-  --mono:'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  --navy:#050816;
+  --navy2:#080D1D;
+  --cyan:#38E8FF;
+  --violet:#795BFF;
+  --white:#F5F8FF;
+  --muted:#8B96B8;
+  --glass:rgba(245,248,255,0.04);
+  --glass-border:rgba(56,232,255,0.14);
+  --font:'Segoe UI',system-ui,-apple-system,Roboto,'Helvetica Neue',Arial,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  background:var(--paper);
-  color:var(--ink);
-  font-family:var(--sans);
+  background:var(--navy);
+  color:var(--white);
+  font-family:var(--font);
   overflow-x:hidden;
-  line-height:1.55;
+  line-height:1.6;
   -webkit-font-smoothing:antialiased;
 }
-::selection{background:var(--accent);color:var(--accent-ink)}
+::selection{background:rgba(56,232,255,.25)}
 
-/* subtle paper grain */
-body::after{
-  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+/* ---------- 3D BACKGROUND ---------- */
+.bg-scene{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;perspective:900px}
+.bg-grid{
+  position:absolute;inset:-40% -20% -10% -20%;
   background-image:
-    radial-gradient(rgba(20,20,16,.045) 1px, transparent 1px),
-    radial-gradient(rgba(20,20,16,.03) 1px, transparent 1px);
-  background-size:5px 5px, 11px 11px;
-  background-position:0 0, 3px 7px;
+    linear-gradient(rgba(56,232,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,232,255,.05) 1px, transparent 1px);
+  background-size:56px 56px;
+  transform:rotateX(62deg) translateZ(-120px);
+  transform-origin:center top;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 30%, rgba(0,0,0,.9), transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 30%, rgba(0,0,0,.9), transparent 75%);
+  animation:gridDrift 26s linear infinite;
 }
+@keyframes gridDrift{from{background-position:0 0,0 0}to{background-position:0 56px,0 0}}
+.bg-glow{position:absolute;border-radius:50%;filter:blur(90px)}
+.bg-glow.cyan{width:52vw;height:52vw;left:-14vw;top:-10vw;background:radial-gradient(circle,rgba(56,232,255,.13),transparent 65%)}
+.bg-glow.violet{width:56vw;height:56vw;right:-16vw;top:22vh;background:radial-gradient(circle,rgba(121,91,255,.15),transparent 65%)}
+.bg-ring{
+  position:absolute;border-radius:50%;
+  border:1px solid rgba(56,232,255,.14);
+  box-shadow:0 0 60px rgba(56,232,255,.06) inset,0 0 40px rgba(121,91,255,.05);
+}
+.bg-ring.r1{width:64vmin;height:64vmin;right:6vw;top:14vh;animation:ringSpin 40s linear infinite}
+.bg-ring.r2{width:84vmin;height:84vmin;right:-4vw;top:6vh;border-color:rgba(121,91,255,.12);animation:ringSpin 60s linear infinite reverse}
+.bg-ring.r3{width:44vmin;height:44vmin;right:16vw;top:24vh;border-style:dashed;border-color:rgba(56,232,255,.10);animation:ringSpin 32s linear infinite}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+.bg-candles{position:absolute;left:0;right:0;bottom:0;height:34vh;opacity:.10}
+.bg-panel{
+  position:absolute;border-radius:16px;
+  background:linear-gradient(135deg,rgba(245,248,255,.05),rgba(245,248,255,.015));
+  border:1px solid rgba(245,248,255,.08);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  animation:panelFloat 14s ease-in-out infinite;
+}
+.bg-panel.p1{width:220px;height:130px;left:6vw;top:34vh;animation-delay:-3s}
+.bg-panel.p2{width:170px;height:210px;left:14vw;top:56vh;animation-delay:-8s}
+.bg-panel.p3{width:190px;height:110px;right:10vw;top:64vh;animation-delay:-5s}
+@keyframes panelFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-22px) rotate(1.2deg)}}
+#particles{position:absolute;inset:0}
+.bg-beam{
+  position:absolute;top:-20vh;height:120vh;width:24vw;
+  background:linear-gradient(180deg,rgba(56,232,255,.07),transparent 70%);
+  transform:skewX(-14deg);filter:blur(28px);
+}
+.bg-beam.b1{left:18vw}
+.bg-beam.b2{left:46vw;background:linear-gradient(180deg,rgba(121,91,255,.07),transparent 70%)}
 
-.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
+/* ---------- LAYOUT ---------- */
 .page{position:relative;z-index:1}
-section{position:relative;padding:clamp(64px,9vw,120px) 0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+section{position:relative;padding:clamp(72px,10vw,130px) 0}
 
-.mono{font-family:var(--mono);font-size:11px;letter-spacing:1.6px;text-transform:uppercase}
-
-/* ---------------- TICKER (top strip) ---------------- */
-.ticker{
-  background:var(--ink);color:var(--paper);
-  overflow:hidden;white-space:nowrap;position:relative;z-index:60;
-  border-bottom:1px solid var(--ink);
-}
-.ticker-inner{display:inline-block;padding:8px 0;animation:tick 32s linear infinite;will-change:transform}
-.ticker:hover .ticker-inner{animation-play-state:paused}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker span{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;margin:0 26px}
-.ticker b{color:var(--accent);font-weight:600}
-.ticker .up{color:#7CB56B}
-.ticker .dn{color:#E03E1A}
-
-/* ---------------- NAV ---------------- */
+/* ---------- NAV ---------- */
 .nav{
-  position:sticky;top:0;z-index:50;
-  background:var(--paper);
-  border-bottom:2px solid var(--line);
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(5,8,22,.55);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(245,248,255,.06);
 }
-.nav-inner{display:flex;align-items:stretch;justify-content:space-between;min-height:64px;max-width:1200px;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white)}
 .logo-mark{
-  width:36px;height:36px;flex:none;display:grid;place-items:center;
-  background:var(--ink);color:var(--paper);
-  font-family:var(--serif);font-weight:700;font-size:19px;line-height:1;
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(56,232,255,.18),rgba(121,91,255,.18));
+  border:1px solid rgba(56,232,255,.35);
+  font-weight:800;font-size:15px;letter-spacing:.5px;color:var(--cyan);
+  text-shadow:0 0 12px rgba(56,232,255,.6);
 }
-.logo-name{font-family:var(--mono);font-weight:600;letter-spacing:2.5px;font-size:13px}
-.logo-name em{font-style:normal;color:var(--accent)}
-.nav-mid{display:flex;align-items:center;gap:8px}
-.nav-mid .mono{color:var(--ink-soft);display:flex;align-items:center;gap:8px}
-.dot{width:8px;height:8px;background:var(--accent);display:inline-block}
-.nav-right{display:flex;align-items:center;gap:12px}
-.nav-link{
-  font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--ink);text-decoration:none;border:2px solid var(--line);
-  padding:9px 16px;background:var(--paper);transition:.15s;
+.logo-name{font-weight:700;letter-spacing:2.5px;font-size:14px}
+.logo-name span{color:var(--muted);font-weight:500}
+.nav-label{
+  font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;
+  display:flex;align-items:center;gap:7px;
 }
-.nav-link:hover{background:var(--ink);color:var(--paper)}
-@media(max-width:680px){.nav-mid{display:none}}
+.nav-label .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.nav-btn{
+  font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:600;
+  color:var(--white);text-decoration:none;
+  padding:10px 18px;border-radius:99px;
+  border:1px solid rgba(56,232,255,.35);
+  background:rgba(56,232,255,.06);
+  transition:.25s;
+}
+.nav-btn:hover,.nav-btn:focus-visible{background:rgba(56,232,255,.16);box-shadow:0 0 18px rgba(56,232,255,.25);outline:none}
+@media(max-width:560px){.nav-label{display:none}}
 
-/* ---------------- BUTTONS ---------------- */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:12px;
-  min-height:56px;padding:16px 34px;
-  font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;
-  color:var(--accent-ink);background:var(--accent);border:2px solid var(--ink);
-  text-decoration:none;cursor:pointer;position:relative;
-  box-shadow:5px 5px 0 var(--ink);
-  transition:transform .12s ease, box-shadow .12s ease, background .15s ease;
+/* ---------- HERO ---------- */
+.hero{min-height:100svh;display:flex;align-items:center;padding-top:110px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,64px);align-items:center;width:100%}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;font-weight:600;
+  padding:8px 16px;border-radius:99px;border:1px solid rgba(56,232,255,.22);background:rgba(56,232,255,.05);
+  margin-bottom:26px;
 }
-.btn:hover,.btn:focus-visible{background:var(--ink);transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--accent);outline:none}
-.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
-.btn.ghost{background:var(--paper);color:var(--ink)}
-.btn.ghost:hover,.btn.ghost:focus-visible{background:var(--accent);color:var(--accent-ink)}
-.btn.loading{pointer-events:none;opacity:.75}
-.btn .spin{display:none;width:14px;height:14px;border:2px solid rgba(255,246,238,.4);border-top-color:var(--accent-ink);animation:spin .7s linear infinite}
-.btn.loading .spin{display:inline-block}
-@keyframes spin{to{transform:rotate(360deg)}}
-.btn.small{min-height:42px;padding:10px 20px;font-size:11px;box-shadow:3px 3px 0 var(--ink)}
-.btn.small:hover,.btn.small:focus-visible{box-shadow:5px 5px 0 var(--accent)}
-
-/* ---------------- HERO ---------------- */
-.hero{border-bottom:2px solid var(--line);padding:clamp(48px,7vw,90px) 0 0}
-.hero-top{display:flex;justify-content:space-between;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--line-soft)}
-.hero-top .mono{color:var(--ink-soft)}
 h1{
-  font-family:var(--serif);font-weight:700;
-  font-size:clamp(2.6rem,8vw,5.6rem);
-  line-height:1.02;letter-spacing:-1.5px;
-  margin:clamp(30px,5vw,56px) 0 26px;
-  max-width:15ch;
+  font-size:clamp(2.3rem,6.2vw,4.3rem);
+  line-height:1.08;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(120deg,var(--white) 30%,var(--cyan) 70%,var(--violet));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:22px;
 }
-h1 .accent{color:var(--accent)}
-h1 .mark{position:relative;white-space:nowrap}
-h1 .mark::after{
-  content:"";position:absolute;left:-2%;bottom:.06em;width:104%;height:.24em;
-  background:var(--accent);z-index:-1;opacity:.85;
+.hero-sub{color:var(--muted);font-size:clamp(1rem,1.6vw,1.15rem);max-width:520px;margin-bottom:36px}
+.cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:54px;padding:15px 32px;border-radius:14px;
+  font-size:15px;font-weight:700;letter-spacing:.6px;text-decoration:none;
+  color:#031018;border:none;cursor:pointer;
+  background:linear-gradient(120deg,var(--cyan),var(--violet));
+  box-shadow:0 8px 30px rgba(56,232,255,.28);
+  transition:transform .18s ease, box-shadow .25s ease, filter .25s ease;
+  position:relative;
 }
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,72px);align-items:end;padding-bottom:clamp(44px,6vw,72px)}
-.hero-sub{font-size:clamp(1rem,1.5vw,1.15rem);color:var(--ink-soft);max-width:46ch;margin-bottom:30px}
-.micro{font-family:var(--mono);font-size:11px;letter-spacing:1.2px;color:var(--ink-soft);margin-top:14px}
-.trust{margin-top:26px;display:flex;align-items:center;gap:12px;color:var(--ink-soft);font-size:13px}
-.trust .badge{
-  flex:none;width:34px;height:34px;border:2px solid var(--line);display:grid;place-items:center;background:var(--paper-2);
+.cta:hover,.cta:focus-visible{transform:translateY(-2px);box-shadow:0 12px 40px rgba(121,91,255,.4);filter:brightness(1.08);outline:none}
+.cta:active{transform:translateY(1px) scale(.98)}
+.cta.loading{pointer-events:none;filter:saturate(.5) brightness(.85)}
+.cta .spin{
+  display:none;width:16px;height:16px;border-radius:50%;
+  border:2px solid rgba(3,16,24,.3);border-top-color:#031018;animation:spin .7s linear infinite;
 }
+.cta.loading .spin{display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cta.ghost{
+  background:transparent;color:var(--white);
+  border:1px solid rgba(56,232,255,.4);box-shadow:none;
+}
+.cta.ghost:hover,.cta.ghost:focus-visible{background:rgba(56,232,255,.08);box-shadow:0 0 22px rgba(56,232,255,.18)}
+.micro{color:var(--muted);font-size:13px;margin-top:14px}
+.micro.dim{opacity:.75;font-size:12px}
+.trust{margin-top:34px;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px}
+.trust svg{flex:none}
 
-/* fact-sheet panel (right column) */
-.fact{
-  border:2px solid var(--line);background:var(--paper-2);
-  box-shadow:8px 8px 0 var(--ink);
+/* hero hologram */
+.holo{position:relative;height:clamp(340px,44vw,520px);perspective:1000px}
+.holo-core{
+  position:absolute;inset:8% 6%;
+  transform-style:preserve-3d;
+  animation:holoTilt 12s ease-in-out infinite;
 }
-.fact-head{
-  display:flex;justify-content:space-between;align-items:center;
-  background:var(--ink);color:var(--paper);padding:12px 16px;
+@keyframes holoTilt{0%,100%{transform:rotateX(8deg) rotateY(-10deg)}50%{transform:rotateX(-4deg) rotateY(10deg)}}
+.holo-ring{
+  position:absolute;border-radius:50%;
+  border:1.5px solid rgba(56,232,255,.3);
+  box-shadow:0 0 40px rgba(56,232,255,.14), inset 0 0 40px rgba(121,91,255,.1);
+  animation:ringSpin 24s linear infinite;
 }
-.fact-head .mono{color:var(--paper)}
-.fact-head .stamp{
-  font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;
-  background:var(--accent);color:var(--accent-ink);padding:3px 8px;
+.holo-ring.hr1{inset:6% 10%}
+.holo-ring.hr2{inset:16% 20%;border-color:rgba(121,91,255,.32);animation-duration:36s;animation-direction:reverse}
+.holo-ring.hr3{inset:27% 30%;border-style:dashed;border-color:rgba(56,232,255,.22);animation-duration:18s}
+.holo-card{
+  position:absolute;border-radius:16px;padding:16px 18px;
+  background:linear-gradient(140deg,rgba(245,248,255,.09),rgba(245,248,255,.02));
+  border:1px solid rgba(245,248,255,.14);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:0 18px 44px rgba(0,0,0,.35);
 }
-.fact-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 16px;border-bottom:1px solid var(--line-soft)}
-.fact-row:last-child{border-bottom:none}
-.fact-row .k{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink-soft)}
-.fact-row .v{font-family:var(--serif);font-weight:700;font-size:1.05rem;text-align:right}
-.fact-row .v.hot{color:var(--accent)}
-.fact-foot{padding:12px 16px;border-top:2px solid var(--line);background:var(--paper)}
+.holo-card.hc-main{left:50%;top:50%;transform:translate(-50%,-50%) translateZ(60px);width:min(74%,320px)}
+.holo-card.hc1{left:2%;top:12%;transform:translateZ(110px);animation:cardBob 7s ease-in-out infinite}
+.holo-card.hc2{right:0;bottom:14%;transform:translateZ(90px);animation:cardBob 9s ease-in-out infinite;animation-delay:-3s}
+@keyframes cardBob{0%,100%{margin-top:0}50%{margin-top:-14px}}
+.holo-card h4{font-size:11px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;margin-bottom:10px;font-weight:600}
+.bars{display:flex;align-items:flex-end;gap:7px;height:64px}
+.bars i{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--cyan),rgba(56,232,255,.15));animation:barPulse 3.4s ease-in-out infinite}
+.bars i:nth-child(2){height:55%;animation-delay:-.4s;background:linear-gradient(180deg,var(--violet),rgba(121,91,255,.15))}
+.bars i:nth-child(1){height:38%}
+.bars i:nth-child(3){height:78%;animation-delay:-.9s}
+.bars i:nth-child(4){height:48%;animation-delay:-1.4s;background:linear-gradient(180deg,var(--violet),rgba(121,91,255,.15))}
+.bars i:nth-child(5){height:88%;animation-delay:-2s}
+.bars i:nth-child(6){height:62%;animation-delay:-2.6s}
+@keyframes barPulse{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.82)}}
+.spark{margin-top:12px;opacity:.9}
+.chip{font-size:11px;color:var(--muted);letter-spacing:.5px}
+.chip b{color:var(--cyan);font-weight:600}
 
-/* ---------------- SECTION HEADINGS ---------------- */
-.kicker{font-family:var(--mono);font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:16px}
-h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.08;letter-spacing:-.8px;margin-bottom:18px}
-.lead{color:var(--ink-soft);font-size:clamp(.98rem,1.4vw,1.1rem);max-width:58ch}
+/* ---------- SECTION HEADINGS ---------- */
+.kicker{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--violet);font-weight:700;margin-bottom:14px}
+h2{font-size:clamp(1.7rem,4.2vw,2.7rem);font-weight:800;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+.lead{color:var(--muted);font-size:clamp(.98rem,1.4vw,1.08rem);max-width:600px}
 .center{text-align:center}
 .center .lead{margin:0 auto}
 
-/* rule header used between sections */
-.rule-head{display:flex;align-items:baseline;gap:18px;margin-bottom:clamp(36px,5vw,56px)}
-.rule-head .no{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--accent)}
-.rule-head .line{flex:1;height:2px;background:var(--line);transform:translateY(-4px)}
-
-/* ---------------- SECTION A : CARDS ---------------- */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--line);border-right:none;margin-top:8px}
+/* ---------- SECTION A CARDS ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
 .card{
-  border-right:2px solid var(--line);background:var(--paper);
-  padding:30px 26px 34px;min-height:280px;position:relative;
-  display:flex;flex-direction:column;gap:0;
-  transition:background .18s ease;
+  position:relative;border-radius:20px;padding:34px 28px;min-height:250px;
+  background:linear-gradient(150deg,rgba(245,248,255,.06),rgba(245,248,255,.015));
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  display:flex;flex-direction:column;
 }
-.card:hover{background:var(--paper-2)}
-.card .num{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--accent);margin-bottom:auto}
+.card::before{
+  content:"";position:absolute;inset:0;border-radius:20px;padding:1px;
+  background:linear-gradient(140deg,rgba(56,232,255,.4),transparent 40%,transparent 60%,rgba(121,91,255,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity .3s;
+}
+.card:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(0,0,0,.4);border-color:rgba(56,232,255,.35)}
+.card:hover::before{opacity:1}
 .card .icon{
-  width:46px;height:46px;border:2px solid var(--line);background:var(--paper);
-  display:grid;place-items:center;margin:26px 0 20px;
-  transition:background .18s ease, transform .18s ease;
+  width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:22px;
+  background:linear-gradient(135deg,rgba(56,232,255,.14),rgba(121,91,255,.14));
+  border:1px solid rgba(56,232,255,.28);
 }
-.card:hover .icon{background:var(--accent);transform:rotate(-6deg)}
-.card:hover .icon svg *{stroke:var(--accent-ink)}
-.card h3{font-family:var(--serif);font-size:1.3rem;font-weight:700;margin-bottom:10px;letter-spacing:-.3px}
-.card p{color:var(--ink-soft);font-size:.94rem}
-.card::after{
-  content:"";position:absolute;left:26px;right:26px;bottom:22px;height:2px;background:var(--accent);
-  transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
-}
-.card:hover::after{transform:scaleX(1)}
+.card h3{font-size:1.15rem;font-weight:700;margin-bottom:10px}
+.card p{color:var(--muted);font-size:.95rem}
 
-/* ---------------- SECTION B : STATEMENT ---------------- */
-.statement{background:var(--ink);color:var(--paper);border-top:2px solid var(--line);border-bottom:2px solid var(--line)}
-.statement .kicker{color:var(--accent)}
-.statement h2{color:var(--paper)}
-.statement .lead{color:rgba(243,239,231,.72)}
-.statement-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(28px,5vw,72px);align-items:center}
-.statement .quote{
-  font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,1.9rem);line-height:1.3;font-weight:700;
-  border-left:4px solid var(--accent);padding-left:24px;letter-spacing:-.3px;
+/* ---------- SECTION B ---------- */
+.section-b{
+  background:linear-gradient(180deg,transparent,rgba(8,13,29,.85) 18%,rgba(8,13,29,.85) 82%,transparent);
+  overflow:hidden;
 }
-.statement .quote small{display:block;margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(243,239,231,.55);font-weight:400}
+.b-holo{position:absolute;inset:0;pointer-events:none;opacity:.5}
+.b-holo svg{width:100%;height:100%}
+.b-holo .line-anim{stroke-dasharray:8 10;animation:dashMove 20s linear infinite}
+@keyframes dashMove{to{stroke-dashoffset:-360}}
+.section-b .content{position:relative;z-index:1;text-align:center}
+.section-b .lead{margin:0 auto 36px}
 
-/* ---------------- SECTION C : NOTICE ---------------- */
-.notice{
-  border:2px solid var(--line);background:var(--paper-2);
-  box-shadow:8px 8px 0 var(--ink);
-  display:flex;gap:22px;align-items:flex-start;
-  padding:clamp(24px,4vw,38px);max-width:820px;margin:44px auto 0;text-align:left;
+/* ---------- SECTION C ---------- */
+.panel{
+  max-width:760px;margin:44px auto 0;border-radius:20px;padding:clamp(26px,4vw,40px);
+  background:linear-gradient(150deg,rgba(245,248,255,.06),rgba(245,248,255,.02));
+  border:1px solid rgba(121,91,255,.25);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:flex;gap:20px;align-items:flex-start;
 }
-.notice .warn{
-  flex:none;width:48px;height:48px;border:2px solid var(--line);background:var(--accent);
-  display:grid;place-items:center;
+.panel .warn{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(121,91,255,.12);border:1px solid rgba(121,91,255,.35)}
+.panel p{color:var(--muted);font-size:.98rem}
+
+/* ---------- SECTION D ---------- */
+.section-d{text-align:center;overflow:hidden}
+.portal{
+  position:relative;width:min(340px,72vw);height:min(340px,72vw);margin:0 auto 44px;
 }
-.notice h3{font-family:var(--serif);font-size:1.2rem;margin-bottom:8px}
-.notice p{color:var(--ink-soft);font-size:.96rem}
-
-/* ---------------- SECTION D : FINAL CTA ---------------- */
-.final{text-align:center}
-.final h2{max-width:20ch;margin-left:auto;margin-right:auto}
-.final .btn{margin-top:30px;min-height:64px;padding:18px 44px;font-size:14px}
-
-/* ---------------- FOOTER ---------------- */
-footer{border-top:2px solid var(--line);background:var(--paper-2);position:relative;z-index:1}
-.foot-grid{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-start;justify-content:space-between;padding:44px 0 54px}
-.foot-brand{font-family:var(--mono);font-weight:600;letter-spacing:2.5px;font-size:13px;margin-bottom:8px}
-.foot-risk{color:var(--ink-soft);font-size:12px;max-width:520px}
-.foot-links{display:flex;gap:10px;flex-wrap:wrap}
-.foot-links button{
-  font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--ink);background:var(--paper);border:2px solid var(--line);
-  padding:9px 16px;cursor:pointer;font-family:var(--mono);transition:.15s;
+.portal .p-ring{position:absolute;border-radius:50%;border:1.5px solid rgba(56,232,255,.35);box-shadow:0 0 46px rgba(56,232,255,.16),inset 0 0 46px rgba(121,91,255,.14);animation:ringSpin 22s linear infinite}
+.portal .p1{inset:0}
+.portal .p2{inset:9%;border-color:rgba(121,91,255,.35);animation-duration:32s;animation-direction:reverse}
+.portal .p3{inset:19%;border-style:dashed;border-color:rgba(56,232,255,.24);animation-duration:15s}
+.portal .p-core{
+  position:absolute;inset:30%;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,rgba(56,232,255,.35),rgba(121,91,255,.28) 60%,transparent 75%);
+  filter:blur(2px);animation:coreBreathe 5s ease-in-out infinite;
 }
-.foot-links button:hover{background:var(--ink);color:var(--paper)}
-.foot-base{border-top:1px solid var(--line-soft);padding:16px 0;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.foot-base .mono{color:var(--ink-soft)}
+@keyframes coreBreathe{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.07);opacity:1}}
+.portal svg{position:absolute;inset:0;width:100%;height:100%}
+.final-card{
+  max-width:640px;margin:0 auto;border-radius:24px;padding:clamp(32px,5vw,52px);
+  background:linear-gradient(150deg,rgba(245,248,255,.07),rgba(245,248,255,.02));
+  border:1px solid rgba(56,232,255,.22);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
 
-/* ---------------- LEGAL OVERLAYS ---------------- */
-.legal{position:fixed;inset:0;z-index:100;display:none;background:rgba(20,20,16,.6);overflow-y:auto;padding:6vh 18px}
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid rgba(245,248,255,.07);padding:44px 0 60px;position:relative;z-index:1;background:rgba(5,8,22,.6)}
+.foot-grid{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a, .foot-btn{
+  color:var(--muted);font-size:13px;text-decoration:none;background:none;border:none;cursor:pointer;
+  font-family:inherit;padding:0;transition:color .2s;
+}
+.foot-links a:hover,.foot-btn:hover{color:var(--cyan)}
+.foot-risk{color:var(--muted);font-size:12px;opacity:.7;max-width:520px;margin-top:6px}
+
+/* ---------- LEGAL OVERLAYS ---------- */
+.legal{
+  position:fixed;inset:0;z-index:100;display:none;
+  background:rgba(5,8,22,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  overflow-y:auto;padding:5vh 18px;
+}
 .legal.open{display:block}
 .legal-box{
-  max-width:760px;margin:0 auto;border:2px solid var(--ink);
-  background:var(--paper);box-shadow:10px 10px 0 var(--ink);
+  max-width:760px;margin:0 auto;border-radius:20px;padding:clamp(26px,4vw,44px);
+  background:linear-gradient(150deg,#0B1226,#080D1D);
+  border:1px solid rgba(56,232,255,.2);
 }
-.legal-head{background:var(--ink);color:var(--paper);padding:18px 26px;display:flex;justify-content:space-between;align-items:center;gap:14px}
-.legal-head h2{font-family:var(--serif);font-size:1.4rem;margin:0;color:var(--paper)}
-.legal-body{padding:clamp(22px,4vw,36px)}
-.legal-body .updated{font-family:var(--mono);font-size:11px;letter-spacing:1.2px;color:var(--accent);margin-bottom:20px}
-.legal-body h3{font-family:var(--mono);font-size:12px;letter-spacing:1.6px;text-transform:uppercase;margin:22px 0 8px;color:var(--ink)}
-.legal-body p,.legal-body li{color:var(--ink-soft);font-size:.93rem}
-.legal-body ul{padding-left:20px;margin-top:6px}
+.legal-box h2{font-size:1.5rem;margin-bottom:6px}
+.legal-box .updated{color:var(--muted);font-size:12px;margin-bottom:24px}
+.legal-box h3{font-size:1.02rem;margin:22px 0 8px;color:var(--cyan)}
+.legal-box p, .legal-box li{color:var(--muted);font-size:.93rem}
+.legal-box ul{padding-left:20px;margin-top:6px}
 .legal-close{
-  margin-top:28px;display:inline-flex;align-items:center;gap:8px;
-  padding:11px 24px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);
-  font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;
-  cursor:pointer;transition:.15s;
+  margin-top:30px;display:inline-flex;align-items:center;gap:8px;
+  padding:11px 24px;border-radius:12px;border:1px solid rgba(56,232,255,.35);
+  background:rgba(56,232,255,.07);color:var(--white);font-weight:600;font-size:14px;cursor:pointer;
+  font-family:inherit;transition:.2s;
 }
-.legal-close:hover{background:var(--accent);border-color:var(--ink)}
-
-/* ---------------- CONSENT BANNER ---------------- */
-.consent{
-  position:fixed;left:16px;right:16px;bottom:16px;z-index:90;max-width:600px;margin:0 auto;
-  border:2px solid var(--ink);background:var(--paper);
-  box-shadow:8px 8px 0 var(--ink);
-  padding:22px;display:none;
-}
-.consent.show{display:block}
-.consent p{color:var(--ink-soft);font-size:.88rem;margin-bottom:16px}
-.consent p b{color:var(--ink)}
-.consent-row{display:flex;gap:12px;flex-wrap:wrap}
-.consent-row .btn{min-height:44px;padding:10px 22px;font-size:11px;box-shadow:3px 3px 0 var(--ink)}
+.legal-close:hover{background:rgba(56,232,255,.16)}
 
 /* reveal on scroll */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:none}
 
-/* ---------------- RESPONSIVE ---------------- */
+/* ---------- RESPONSIVE ---------- */
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr}
-  .cards{grid-template-columns:1fr;border-right:2px solid var(--line)}
-  .card{border-right:none;border-bottom:2px solid var(--line);min-height:auto}
-  .card:last-child{border-bottom:none}
-  .statement-grid{grid-template-columns:1fr}
+  .holo{height:300px;order:-1;opacity:.9}
+  .holo-card.hc-main{width:min(70%,280px)}
+  .cards{grid-template-columns:1fr}
+  .bg-panel{display:none}
+  .bg-ring.r2,.bg-ring.r3{display:none}
+  .hero{padding-top:96px;min-height:auto;padding-bottom:60px}
 }
 @media(max-width:560px){
-  .btn{width:100%;min-height:52px}
-  .nav-right .nav-link{display:none}
-  .notice{flex-direction:column;box-shadow:5px 5px 0 var(--ink)}
-  .hero-top{flex-direction:column;gap:6px}
+  .cta{width:100%;min-height:52px}
+  .panel{flex-direction:column}
+  .bg-beam{display:none}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -321,23 +365,40 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
 }
 </style>
 <base target="_blank">
-<base target="_blank">
 </head>
 <body>
 
-<!-- MARKET TICKER -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-inner" id="ticker-inner">
-    <span>ZORO TRADER <b>/</b> TELEGRAM COMMUNITY</span>
-    <span>BTC <b class="up">+2.4%</b></span>
-    <span>ETH <b class="dn">-0.8%</b></span>
-    <span>DISCUSSIONS <b>DAILY</b></span>
-    <span>INSIGHTS <b>SHARED</b></span>
-    <span>MARKET WATCH <b>ONGOING</b></span>
-    <span>NASDAQ <b class="up">+0.6%</b></span>
-    <span>GOLD <b class="up">+0.3%</b></span>
-    <span>COMMUNITY <b>OPEN</b></span>
-  </div>
+<!-- BACKGROUND -->
+<div class="bg-scene" aria-hidden="true">
+  <div class="bg-glow cyan"></div>
+  <div class="bg-glow violet"></div>
+  <div class="bg-grid"></div>
+  <canvas id="particles"></canvas>
+  <div class="bg-beam b1"></div>
+  <div class="bg-beam b2"></div>
+  <div class="bg-ring r1"></div>
+  <div class="bg-ring r2"></div>
+  <div class="bg-ring r3"></div>
+  <div class="bg-panel p1"></div>
+  <div class="bg-panel p2"></div>
+  <div class="bg-panel p3"></div>
+  <svg class="bg-candles" viewBox="0 0 1200 300" preserveAspectRatio="none">
+    <g stroke="rgba(56,232,255,.7)" stroke-width="2">
+      <line x1="80" y1="90" x2="80" y2="200"/><rect x="70" y="120" width="20" height="56" rx="3" fill="rgba(56,232,255,.35)"/>
+      <line x1="160" y1="60" x2="160" y2="180"/><rect x="150" y="92" width="20" height="62" rx="3" fill="rgba(56,232,255,.35)"/>
+      <line x1="320" y1="70" x2="320" y2="190"/><rect x="310" y="100" width="20" height="60" rx="3" fill="rgba(56,232,255,.35)"/>
+      <line x1="480" y1="40" x2="480" y2="170"/><rect x="470" y="70" width="20" height="70" rx="3" fill="rgba(56,232,255,.35)"/>
+      <line x1="800" y1="60" x2="800" y2="180"/><rect x="790" y="88" width="20" height="64" rx="3" fill="rgba(56,232,255,.35)"/>
+      <line x1="1120" y1="70" x2="1120" y2="190"/><rect x="1110" y="100" width="20" height="62" rx="3" fill="rgba(56,232,255,.35)"/>
+    </g>
+    <g stroke="rgba(121,91,255,.7)" stroke-width="2">
+      <line x1="240" y1="80" x2="240" y2="200"/><rect x="230" y="112" width="20" height="58" rx="3" fill="rgba(121,91,255,.35)"/>
+      <line x1="400" y1="100" x2="400" y2="220"/><rect x="390" y="130" width="20" height="58" rx="3" fill="rgba(121,91,255,.35)"/>
+      <line x1="640" y1="60" x2="640" y2="200"/><rect x="630" y="95" width="20" height="66" rx="3" fill="rgba(121,91,255,.35)"/>
+      <line x1="960" y1="80" x2="960" y2="210"/><rect x="950" y="115" width="20" height="62" rx="3" fill="rgba(121,91,255,.35)"/>
+    </g>
+    <path d="M0,230 L120,200 L240,215 L360,170 L480,185 L600,140 L720,160 L840,120 L960,140 L1080,100 L1200,120" fill="none" stroke="rgba(56,232,255,.5)" stroke-width="1.5"/>
+  </svg>
 </div>
 
 <!-- NAV -->
@@ -345,14 +406,14 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
   <div class="nav-inner">
     <a class="logo" href="#top" aria-label="Zoro Trader home">
       <span class="logo-mark">Z</span>
-      <span class="logo-name">ZORO <em>TRADER</em></span>
+      <span class="logo-name">ZORO <span>TRADER</span></span>
     </a>
-    <span class="nav-mid mono"><span class="dot"></span> Telegram Community — Est. Channel</span>
-    <div class="nav-right">
-      <a class="nav-link" href="https://telegram.me/+mkY5lXoZz3YyZTk0" target="_blank" rel="noopener noreferrer">Explore Channel</a>
-      <button class="btn small js-tg-cta" type="button">
+    <span class="nav-label"><span class="dot"></span>Telegram Community</span>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a class="nav-btn" href="https://telegram.me/+mkY5lXoZz3YyZTk0" target="_blank" rel="noopener noreferrer">Explore Channel</a>
+      <button class="cta js-tg-cta nav-join" type="button" style="min-height:40px;padding:9px 20px;font-size:12px;border-radius:99px">
         <span class="spin" aria-hidden="true"></span>
-        <span class="cta-label">Join</span>
+        <span class="cta-label">JOIN</span>
       </button>
     </div>
   </div>
@@ -362,41 +423,37 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
 
 <!-- HERO -->
 <header class="hero">
-  <div class="wrap">
-    <div class="hero-top">
-      <span class="mono">Vol. 01 — Community Bulletin</span>
-      <span class="mono">Read Before You Trade</span>
-    </div>
-
-    <div class="hero-grid">
-      <div>
-        <h1>Your Next Step Into The <span class="mark">Trading</span> <span class="accent">World.</span></h1>
-        <p class="hero-sub">Explore trading-related insights, market discussions, and community updates from Zoro Trader on Telegram.</p>
-        <button class="btn js-tg-cta" type="button">
-          <span class="spin" aria-hidden="true"></span>
-          <span class="cta-label">Join Zoro Trader on Telegram &rarr;</span>
-        </button>
-        <p class="micro">Opens directly in Telegram</p>
-        <div class="trust">
-          <span class="badge">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#141410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </span>
-          Review the channel and its information before participating.
-        </div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">ZORO TRADER &bull; TRADING COMMUNITY</span>
+      <h1>Your Next Step Into The Trading World.</h1>
+      <p class="hero-sub">Explore trading-related insights, market discussions, and community updates from Zoro Trader on Telegram.</p>
+      <button class="cta js-tg-cta" type="button">
+        <span class="spin" aria-hidden="true"></span>
+        <span class="cta-label">JOIN ZORO TRADER ON TELEGRAM &rarr;</span>
+      </button>
+      <p class="micro">Opens directly in Telegram</p>
+      <div class="trust">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38E8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Review the channel and its information before participating.
       </div>
-
-      <aside class="fact" aria-label="Channel fact sheet">
-        <div class="fact-head">
-          <span class="mono">Channel Fact Sheet</span>
-          <span class="stamp">Live</span>
+    </div>
+    <div class="holo" aria-hidden="true">
+      <div class="holo-core">
+        <div class="holo-ring hr1"></div>
+        <div class="holo-ring hr2"></div>
+        <div class="holo-ring hr3"></div>
+        <div class="holo-card hc-main">
+          <h4>Market Overview</h4>
+          <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <svg class="spark" width="100%" height="34" viewBox="0 0 260 34" preserveAspectRatio="none">
+            <path d="M0,26 L30,20 L60,24 L90,12 L120,18 L150,8 L180,14 L210,6 L260,10" fill="none" stroke="#38E8FF" stroke-width="2" opacity=".85"/>
+            <path d="M0,30 L40,26 L80,28 L130,20 L180,22 L220,16 L260,18" fill="none" stroke="#795BFF" stroke-width="2" opacity=".7"/>
+          </svg>
         </div>
-        <div class="fact-row"><span class="k">Platform</span><span class="v">Telegram</span></div>
-        <div class="fact-row"><span class="k">Focus</span><span class="v">Trading Content</span></div>
-        <div class="fact-row"><span class="k">Discussions</span><span class="v hot">Market &amp; Ideas</span></div>
-        <div class="fact-row"><span class="k">Updates</span><span class="v">Shared by Channel</span></div>
-        <div class="fact-row"><span class="k">Cost to View</span><span class="v">Free to Explore</span></div>
-        <div class="fact-foot mono" style="color:var(--ink-soft)">No. 001 / ZT — Reference Only</div>
-      </aside>
+        <div class="holo-card hc1"><span class="chip">Community <b>&bull; Online</b></span></div>
+        <div class="holo-card hc2"><span class="chip">Insights <b>&bull; Shared daily</b></span></div>
+      </div>
     </div>
   </div>
 </header>
@@ -404,126 +461,108 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
 <!-- SECTION A -->
 <section id="features">
   <div class="wrap">
-    <div class="rule-head reveal">
-      <span class="no">01 /</span>
-      <div>
-        <p class="kicker">The Trading Space</p>
-        <h2>Step Into The World Of Trading</h2>
-        <p class="lead">A Telegram community space for exploring trading-related content at your own pace.</p>
-      </div>
-      <span class="line"></span>
+    <div class="reveal">
+      <p class="kicker">The Trading Space</p>
+      <h2>Step Into The World Of Trading</h2>
+      <p class="lead">A Telegram community space for exploring trading-related content at your own pace.</p>
     </div>
-
-    <div class="cards reveal">
-      <article class="card">
-        <span class="num">Sec. 01</span>
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></div>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38E8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></div>
         <h3>Market Discussions</h3>
-        <p>Explore trading-related conversations and market perspectives shared within the community.</p>
-      </article>
-      <article class="card">
-        <span class="num">Sec. 02</span>
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <p>Explore trading-related conversations and market perspectives.</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#795BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
         <h3>Trading Insights</h3>
-        <p>Discover shared ideas and educational observations from the channel.</p>
-      </article>
-      <article class="card">
-        <span class="num">Sec. 03</span>
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#141410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <p>Discover shared ideas and educational observations.</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38E8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3>Community Updates</h3>
-        <p>Stay informed about updates and announcements shared by the channel.</p>
-      </article>
+        <p>Stay informed about updates shared by the channel.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- SECTION B -->
-<section class="statement">
-  <div class="wrap">
-    <div class="rule-head reveal">
-      <span class="no">02 /</span>
-      <div>
-        <p class="kicker">The Approach</p>
-        <h2>A Different Way To Explore Trading Content</h2>
-      </div>
-      <span class="line" style="background:rgba(243,239,231,.25)"></span>
-    </div>
-    <div class="statement-grid reveal">
-      <blockquote class="quote">
-        Join the conversation, explore shared information, and make informed decisions.
-        <small>Zoro Trader — Community Principle</small>
-      </blockquote>
-      <div>
-        <p class="lead">No noise, no hype — just a space to read, discuss, and decide for yourself. Explore the channel and see what the community shares.</p>
-        <br>
-        <button class="btn ghost js-tg-cta" type="button" style="box-shadow:5px 5px 0 var(--accent)">
-          <span class="spin" aria-hidden="true"></span>
-          <span class="cta-label">Explore on Telegram</span>
-        </button>
-      </div>
-    </div>
+<section class="section-b">
+  <div class="b-holo" aria-hidden="true">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+      <path class="line-anim" d="M-50,480 L150,420 L300,450 L450,340 L600,380 L760,260 L900,300 L1050,190 L1250,230" fill="none" stroke="rgba(56,232,255,.35)" stroke-width="2"/>
+      <path class="line-anim" d="M-50,520 L180,480 L360,500 L560,420 L760,440 L960,360 L1250,390" fill="none" stroke="rgba(121,91,255,.3)" stroke-width="2"/>
+      <g stroke="rgba(56,232,255,.22)" stroke-width="1.5">
+        <line x1="180" y1="360" x2="180" y2="460"/><rect x="172" y="385" width="16" height="48" rx="2" fill="rgba(56,232,255,.14)"/>
+        <line x1="450" y1="280" x2="450" y2="380"/><rect x="442" y="305" width="16" height="50" rx="2" fill="rgba(56,232,255,.14)"/>
+        <line x1="760" y1="200" x2="760" y2="300"/><rect x="752" y="225" width="16" height="52" rx="2" fill="rgba(56,232,255,.14)"/>
+        <line x1="1050" y1="130" x2="1050" y2="230"/><rect x="1042" y="155" width="16" height="50" rx="2" fill="rgba(56,232,255,.14)"/>
+      </g>
+      <g stroke="rgba(121,91,255,.22)" stroke-width="1.5">
+        <line x1="300" y1="330" x2="300" y2="440"/><rect x="292" y="360" width="16" height="52" rx="2" fill="rgba(121,91,255,.14)"/>
+        <line x1="600" y1="260" x2="600" y2="370"/><rect x="592" y="290" width="16" height="54" rx="2" fill="rgba(121,91,255,.14)"/>
+        <line x1="900" y1="190" x2="900" y2="300"/><rect x="892" y="220" width="16" height="52" rx="2" fill="rgba(121,91,255,.14)"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap content reveal">
+    <p class="kicker">The Visual Signature</p>
+    <h2>A Different Way To Explore Trading Content</h2>
+    <p class="lead">Join the conversation, explore shared information, and make informed decisions.</p>
+    <br>
+    <button class="cta ghost js-tg-cta" type="button">
+      <span class="spin" aria-hidden="true"></span>
+      <span class="cta-label">Explore Zoro Trader on Telegram</span>
+    </button>
   </div>
 </section>
 
 <!-- SECTION C -->
 <section>
   <div class="wrap center reveal">
-    <div class="rule-head" style="margin-bottom:0">
-      <span class="no">03 /</span>
-      <div>
-        <p class="kicker">Before You Join</p>
-        <h2>Trade Responsibly</h2>
-      </div>
-      <span class="line"></span>
-    </div>
-    <div class="notice">
+    <p class="kicker">Before You Join</p>
+    <h2>Trade Responsibly</h2>
+    <div class="panel" style="text-align:left">
       <div class="warn">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFF6EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#795BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       </div>
-      <div>
-        <h3>Notice — Financial Risk</h3>
-        <p>Trading involves financial risk, and losses are possible. Information shared in a Telegram community should not be treated as guaranteed financial advice or a promise of profit. Research independently and never risk money you cannot afford to lose.</p>
-      </div>
+      <p>Trading involves financial risk, and losses are possible. Information shared in a Telegram community should not be treated as guaranteed financial advice or a promise of profit. Research independently and never risk money you cannot afford to lose.</p>
     </div>
   </div>
 </section>
 
 <!-- SECTION D -->
-<section class="final" style="padding-top:0">
+<section class="section-d">
   <div class="wrap reveal">
-    <div class="rule-head">
-      <span class="no">04 /</span>
-      <div>
-        <p class="kicker">Final Call</p>
-        <h2>Your Trading Community Awaits.</h2>
-        <p class="lead">Visit Zoro Trader on Telegram to explore the channel.</p>
-      </div>
-      <span class="line"></span>
+    <div class="portal" aria-hidden="true">
+      <div class="p-ring p1"></div>
+      <div class="p-ring p2"></div>
+      <div class="p-ring p3"></div>
+      <div class="p-core"></div>
+      <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="none" stroke="rgba(56,232,255,.12)" stroke-width="1"/><circle cx="100" cy="100" r="70" fill="none" stroke="rgba(121,91,255,.12)" stroke-width="1"/></svg>
     </div>
-    <button class="btn js-tg-cta" type="button">
-      <span class="spin" aria-hidden="true"></span>
-      <span class="cta-label">Open Telegram Channel &rarr;</span>
-    </button>
-    <p class="micro">You will be redirected to Telegram. Review the channel before deciding whether to participate.</p>
+    <div class="final-card">
+      <h2>Your Trading Community Awaits.</h2>
+      <p class="lead" style="margin:0 auto 30px">Visit Zoro Trader on Telegram to explore the channel.</p>
+      <button class="cta js-tg-cta" type="button">
+        <span class="spin" aria-hidden="true"></span>
+        <span class="cta-label">OPEN TELEGRAM CHANNEL &rarr;</span>
+      </button>
+      <p class="micro dim">You will be redirected to Telegram. Review the channel before deciding whether to participate.</p>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <p class="foot-brand">ZORO TRADER</p>
-        <p class="foot-risk">Trading involves risk. Content shared in the channel is not financial advice. Never trade with money you cannot afford to lose.</p>
-      </div>
-      <div class="foot-links">
-        <button class="foot-btn" type="button" data-legal="privacy">Privacy Policy</button>
-        <button class="foot-btn" type="button" data-legal="terms">Terms of Use</button>
-      </div>
+  <div class="wrap foot-grid">
+    <div>
+      <span class="logo-name" style="letter-spacing:2px">ZORO TRADER</span>
+      <p class="foot-risk">Trading involves risk. Content shared in the channel is not financial advice. Never trade with money you cannot afford to lose.</p>
     </div>
-    <div class="foot-base">
-      <span class="mono">&copy; 2026 Zoro Trader — Telegram Community</span>
-      <span class="mono">Informational page — not a trading platform</span>
+    <div class="foot-links">
+      <button class="foot-btn" type="button" data-legal="privacy">Privacy Policy</button>
+      <button class="foot-btn" type="button" data-legal="terms">Terms of Use</button>
     </div>
   </div>
 </footer>
@@ -533,63 +572,44 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
 <!-- PRIVACY POLICY -->
 <div class="legal" id="legal-privacy" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
   <div class="legal-box">
-    <div class="legal-head">
-      <h2 id="privacy-title">Privacy Policy</h2>
-      <span class="mono" style="color:var(--accent)">Doc. A</span>
-    </div>
-    <div class="legal-body">
-      <p class="updated">Last updated: October 16, 2026</p>
-      <p>This Privacy Policy explains how the Zoro Trader landing page ("the Site") handles information when you visit.</p>
-      <h3>1. Information We Collect</h3>
-      <p>The Site does not require registration and does not ask you to submit personal information. We do not operate accounts, forms, or comment systems on this page.</p>
-      <h3>2. Analytics and Advertising Measurement</h3>
-      <p>With your consent, the Site uses the Meta Pixel (operated by Meta Platforms, Inc.) to measure page visits and interactions with the Telegram call-to-action buttons. Events tracked may include PageView, ViewContent, and a custom "TelegramCTAClick" event. These events do not contain your name, contact details, or financial information.</p>
-      <h3>3. Consent and Your Choices</h3>
-      <p>Where required, optional measurement cookies are only activated after you accept via the consent banner. You can decline, and you may withdraw consent at any time by clearing your browser cookies or adjusting your browser settings. Meta also provides ad preference controls in your Meta account settings.</p>
-      <h3>4. Third-Party Services</h3>
-      <p>When you choose to click a Telegram button, you are redirected to Telegram (operated by Telegram FZ-LLC), which handles your data under its own privacy policy. We do not receive your Telegram identity, phone number, or join status.</p>
-      <h3>5. Data Retention</h3>
-      <p>Measurement data collected via Meta is retained according to Meta's own data policies. The Site itself stores no visitor database.</p>
-      <h3>6. Contact</h3>
-      <p>For privacy questions, contact the channel administrator through the Zoro Trader Telegram channel.</p>
-      <button class="legal-close" type="button" data-close>Close</button>
-    </div>
+    <h2 id="privacy-title">Privacy Policy</h2>
+    <p class="updated">Last updated: October 16, 2026</p>
+    <p>This Privacy Policy explains how the Zoro Trader landing page ("the Site") handles information when you visit.</p>
+    <h3>1. Information We Collect</h3>
+    <p>The Site does not require registration and does not ask you to submit personal information. We do not operate accounts, forms, or comment systems on this page.</p>
+    <h3>2. Analytics and Advertising Measurement</h3>
+    <p>With your consent, the Site uses the Meta Pixel (operated by Meta Platforms, Inc.) to measure page visits and interactions with the Telegram call-to-action buttons. Events tracked may include PageView, ViewContent, and a custom "TelegramCTAClick" event. These events do not contain your name, contact details, or financial information.</p>
+    <h3>3. Consent and Your Choices</h3>
+    <p>Where required, optional measurement cookies are only activated after you accept via the consent banner. You can decline, and you may withdraw consent at any time by clearing your browser cookies or adjusting your browser settings. Meta also provides ad preference controls in your Meta account settings.</p>
+    <h3>4. Third-Party Services</h3>
+    <p>When you choose to click a Telegram button, you are redirected to Telegram ( operated by Telegram FZ-LLC ), which handles your data under its own privacy policy. We do not receive your Telegram identity, phone number, or join status.</p>
+    <h3>5. Data Retention</h3>
+    <p>Measurement data collected via Meta is retained according to Meta's own data policies. The Site itself stores no visitor database.</p>
+    <h3>6. Contact</h3>
+    <p>For privacy questions, contact the channel administrator through the Zoro Trader Telegram channel.</p>
+    <button class="legal-close" type="button" data-close>Close</button>
   </div>
 </div>
 
 <!-- TERMS OF USE -->
 <div class="legal" id="legal-terms" role="dialog" aria-modal="true" aria-labelledby="terms-title">
   <div class="legal-box">
-    <div class="legal-head">
-      <h2 id="terms-title">Terms of Use</h2>
-      <span class="mono" style="color:var(--accent)">Doc. B</span>
-    </div>
-    <div class="legal-body">
-      <p class="updated">Last updated: October 16, 2026</p>
-      <p>By accessing this landing page, you agree to these Terms of Use.</p>
-      <h3>1. Nature of the Site</h3>
-      <p>This Site is an informational landing page that describes and links to the Zoro Trader channel on Telegram. It is not a trading platform, broker, financial advisor, or investment service, and it does not execute trades or hold funds.</p>
-      <h3>2. No Financial Advice</h3>
-      <p>Nothing on this Site or in the linked Telegram channel constitutes financial, investment, or trading advice. Trading involves substantial risk, including the possible loss of all capital. Always conduct your own research and consult a licensed professional where appropriate.</p>
-      <h3>3. External Links</h3>
-      <p>Links to Telegram redirect you to a third-party service governed by Telegram's own terms. We are not responsible for content, availability, or policies of third-party platforms.</p>
-      <h3>4. No Guarantees</h3>
-      <p>We make no representations or warranties of any kind, express or implied, about the completeness, accuracy, or outcomes of any information shared through the channel.</p>
-      <h3>5. Acceptance of Risk</h3>
-      <p>You acknowledge that any decision to trade is made at your own risk and that you should never risk money you cannot afford to lose.</p>
-      <h3>6. Changes</h3>
-      <p>These terms may be updated from time to time. Continued use of the Site after changes constitutes acceptance.</p>
-      <button class="legal-close" type="button" data-close>Close</button>
-    </div>
-  </div>
-</div>
-
-<!-- CONSENT BANNER -->
-<div class="consent" id="consent" role="dialog" aria-label="Cookie consent">
-  <p><b>Your privacy matters.</b> We use measurement cookies (Meta Pixel) to understand visits and Telegram button interactions. No personal details are collected through this page. You can accept or decline.</p>
-  <div class="consent-row">
-    <button class="btn" type="button" id="consent-accept">Accept</button>
-    <button class="btn ghost" type="button" id="consent-decline">Decline</button>
+    <h2 id="terms-title">Terms of Use</h2>
+    <p class="updated">Last updated: October 16, 2026</p>
+    <p>By accessing this landing page, you agree to these Terms of Use.</p>
+    <h3>1. Nature of the Site</h3>
+    <p>This Site is an informational landing page that describes and links to the Zoro Trader channel on Telegram. It is not a trading platform, broker, financial advisor, or investment service, and it does not execute trades or hold funds.</p>
+    <h3>2. No Financial Advice</h3>
+    <p>Nothing on this Site or in the linked Telegram channel constitutes financial, investment, or trading advice. Trading involves substantial risk, including the possible loss of all capital. Always conduct your own research and consult a licensed professional where appropriate.</p>
+    <h3>3. External Links</h3>
+    <p>Links to Telegram redirect you to a third-party service governed by Telegram's own terms. We are not responsible for content, availability, or policies of third-party platforms.</p>
+    <h3>4. No Guarantees</h3>
+    <p>We make no representations or warranties of any kind, express or implied, about the completeness, accuracy, or outcomes of any information shared through the channel.</p>
+    <h3>5. Acceptance of Risk</h3>
+    <p>You acknowledge that any decision to trade is made at your own risk and that you should never risk money you cannot afford to lose.</p>
+    <h3>6. Changes</h3>
+    <p>These terms may be updated from time to time. Continued use of the Site after changes constitutes acceptance.</p>
+    <button class="legal-close" type="button" data-close>Close</button>
   </div>
 </div>
 
@@ -597,37 +617,18 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
 (function(){
   "use strict";
   var TG_URL = "https://telegram.me/+mkY5lXoZz3YyZTk0";
-  /* AUTO-REDIRECT: set to 0 to disable. Redirect only happens if user has
-     not already opened Telegram via a CTA. No pixel event for auto redirects. */
+  /* AUTO-REDIRECT: set to 0 to disable. Original brief Section 6 prohibits timer redirects;
+     enabled here at operator request (20s). Redirect only happens if user has not already
+     opened Telegram via a CTA. No pixel event fired for automatic redirects. */
   var AUTO_REDIRECT_SECONDS = 20;
   var tgOpened = false;
   window.addEventListener("zt:telegram-opened", function(){ tgOpened = true; });
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- CONSENT ---------- */
-  var CONSENT_KEY = "zt_consent_v1";
-  var consentBanner = document.getElementById("consent");
-  var consent = null;
-  try { consent = localStorage.getItem(CONSENT_KEY); } catch(e) {}
-
-  function grantConsent(){ if (typeof fbq === "function") fbq("consent","grant"); }
-  function setConsent(v){
-    try { localStorage.setItem(CONSENT_KEY, v); } catch(e) {}
-    consent = v;
-    consentBanner.classList.remove("show");
-    if (v === "accepted"){
-      grantConsent();
-      if (typeof fbq === "function" && !window.__ztPVDone){ window.__ztPVDone = true; fbq("track","PageView"); }
-    }
-  }
-  document.getElementById("consent-accept").addEventListener("click", function(){ setConsent("accepted"); });
-  document.getElementById("consent-decline").addEventListener("click", function(){ setConsent("declined"); });
-
-  if (consent === "accepted"){ grantConsent(); }
-  else { consentBanner.classList.add("show"); }
-
-  if (typeof fbq === "function"){
-    if (consent === "accepted" && !window.__ztPVDone){ window.__ztPVDone = true; fbq("track","PageView"); }
+  /* ---------- PIXEL TRACKING ---------- */
+  if (typeof fbq === "function" && !window.__ztPVDone){
+    window.__ztPVDone = true;
+    fbq("track", "PageView");
   }
 
   /* ---------- VIEWCONTENT (once, on meaningful visibility) ---------- */
@@ -637,7 +638,7 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
       entries.forEach(function(en){
         if (en.isIntersecting && !vcDone){
           vcDone = true;
-          if (consent === "accepted" && typeof fbq === "function") fbq("track","ViewContent");
+          if (typeof fbq === "function") fbq("track","ViewContent");
           io.disconnect();
         }
       });
@@ -648,7 +649,7 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
 
   /* ---------- TELEGRAM CTA HANDLING ---------- */
   function trackCTA(){
-    if (consent === "accepted" && typeof fbq === "function"){
+    if (typeof fbq === "function"){
       fbq("trackCustom","TelegramCTAClick");
     }
   }
@@ -669,7 +670,7 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
     });
   });
   /* Nav button: genuine direct link — attach click handler on the anchor */
-  document.querySelectorAll('.nav-link[href^="https://telegram.me"]').forEach(function(a){
+  document.querySelectorAll('.nav-btn[href^="https://telegram.me"]').forEach(function(a){
     a.addEventListener("click", function(){ tgOpened = true; trackCTA(); });
   });
 
@@ -706,10 +707,50 @@ footer{border-top:2px solid var(--line);background:var(--paper-2);position:relat
     document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("visible"); });
   }
 
-  /* ---------- TICKER : duplicate content for seamless loop ---------- */
-  var tickerInner = document.getElementById("ticker-inner");
-  if (tickerInner && !reduced){
-    tickerInner.innerHTML += tickerInner.innerHTML;
+  /* ---------- PARTICLES ---------- */
+  if (!reduced){
+    var canvas = document.getElementById("particles");
+    var ctx = canvas.getContext("2d");
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W, H, parts = [];
+    var isMobile = window.matchMedia("(max-width: 700px)").matches;
+    var COUNT = isMobile ? 26 : 70;
+    function resize(){
+      W = canvas.width = innerWidth * dpr;
+      H = canvas.height = innerHeight * dpr;
+      canvas.style.width = innerWidth + "px";
+      canvas.style.height = innerHeight + "px";
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    function make(){
+      return {
+        x: Math.random()*W, y: Math.random()*H,
+        r: (Math.random()*1.6+.6)*dpr,
+        vy: (Math.random()*.22+.06)*dpr,
+        vx: (Math.random()-.5)*.12*dpr,
+        o: Math.random()*.5+.15,
+        c: Math.random() > .5 ? "56,232,255" : "121,91,255"
+      };
+    }
+    for (var i=0;i<COUNT;i++) parts.push(make());
+    var visible = true;
+    document.addEventListener("visibilitychange", function(){ visible = !document.hidden; });
+    (function loop(){
+      requestAnimationFrame(loop);
+      if (!visible) return;
+      ctx.clearRect(0,0,W,H);
+      for (var i=0;i<parts.length;i++){
+        var p = parts[i];
+        p.y -= p.vy; p.x += p.vx;
+        if (p.y < -8) { p.y = H+8; p.x = Math.random()*W; }
+        if (p.x < -8) p.x = W+8; if (p.x > W+8) p.x = -8;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+        ctx.fillStyle = "rgba(" + p.c + "," + p.o + ")";
+        ctx.fill();
+      }
+    })();
   }
 
   /* ---------- TIMER AUTO-REDIRECT (see config above) ---------- */
